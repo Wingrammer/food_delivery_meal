@@ -84,7 +84,7 @@ class _OfferViewState extends State<OfferView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Latest Offers",
+                      "Dernières Offres",
                       style: TextStyle(
                           color: TColor.primaryText,
                           fontSize: 20,
@@ -112,7 +112,7 @@ class _OfferViewState extends State<OfferView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Find discounts, Offers special\nmeals and more!",
+                      "Remises, Offres speciales\nrepas et plus!",
                       style: TextStyle(
                           color: TColor.secondaryText,
                           fontSize: 14,
@@ -124,14 +124,14 @@ class _OfferViewState extends State<OfferView> {
               const SizedBox(
                 height: 15,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SizedBox(
-                  width: 140,
-                  height: 30,
-                  child: RoundButton(title: "check Offers", fontSize: 12 , onPressed: () {}),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 20),
+              //   child: SizedBox(
+              //     width: 140,
+              //     height: 30,
+              //     child: RoundButton(title: "check Offres", fontSize: 12 , onPressed: () {}),
+              //   ),
+              // ),
               const SizedBox(
                 height: 15,
               ),

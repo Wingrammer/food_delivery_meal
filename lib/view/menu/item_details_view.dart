@@ -115,7 +115,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           height: 4,
                                         ),
                                         Text(
-                                          " 4 Star Ratings",
+                                          " 4 Star Votes",
                                           style: TextStyle(
                                               color: TColor.primary,
                                               fontSize: 11,

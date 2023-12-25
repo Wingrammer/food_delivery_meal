@@ -20,13 +20,12 @@ class Globs {
     EasyLoading.dismiss();
   }
 
-
-  static void udSet(dynamic data, String key){
+  static void udSet(dynamic data, String key) {
     var jsonStr = json.encode(data);
     prefs?.setString(key, jsonStr);
   }
 
-  static void udStringSet(String data, String key){
+  static void udStringSet(String data, String key) {
     prefs?.setString(key, data);
   }
 
@@ -34,11 +33,11 @@ class Globs {
     prefs?.setBool(key, data);
   }
 
-  static void udIntSet(int data, String key)  {
+  static void udIntSet(int data, String key) {
     prefs?.setInt(key, data);
   }
 
-  static void udDoubleSet(double data, String key)  {
+  static void udDoubleSet(double data, String key) {
     prefs?.setDouble(key, data);
   }
 
@@ -74,18 +73,18 @@ class Globs {
     try {
       return await FlutterTimezone.getLocalTimezone();
     } on PlatformException {
-        return "";
+      return "";
     }
   }
 }
 
 class SVKey {
-  static const mainUrl = "http://192.168.1.2:3001";
+  static const mainUrl = "http://192.168.1.64:3001";
   static const baseUrl = '$mainUrl/api/';
   static const nodeUrl = mainUrl;
 
   static const svLogin = '${baseUrl}login';
-  static const svSignUp = '${baseUrl}sign_up';
+  static const svSignUp = '${baseUrl}user';
   static const svForgotPasswordRequest = '${baseUrl}forgot_password_request';
   static const svForgotPasswordVerify = '${baseUrl}forgot_password_verify';
   static const svForgotPasswordSetNew = '${baseUrl}forgot_password_set_new';
@@ -97,7 +96,7 @@ class KKey {
   static const message = "message";
   static const authToken = "auth_token";
   static const name = "name";
-  static const email = "email";
+  static const phone = "Phone";
   static const mobile = "mobile";
   static const address = "address";
   static const userId = "user_id";
@@ -119,16 +118,18 @@ class KKey {
 }
 
 class MSG {
-  static const enterEmail = "Please enter your valid email address.";
-  static const enterName = "Please enter your name.";
-  static const enterCode = "Please enter valid reset code.";
+  static const enterPhone = "Veuillez entrer un numero de telephone valide.";
+  static const enterName = "Veuiller entrer votre nom.";
+  static const enterCode =
+      "Veuillez saisir un code de réinitialisation valide.";
 
-  static const enterMobile = "Please enter your valid mobile number.";
-  static const enterAddress = "Please enter your address.";
+  static const enterMobile =
+      "Veuillez saisir votre numéro de téléphone valide.";
+  static const enterAddress = "Veuillez saisir votre adresse.";
   static const enterPassword =
-      "Please enter password minimum 6 characters at least.";
+      "Veuillez entrer un mot de passe d'au moins 6 caractères.";
   static const enterPasswordNotMatch =
-      "Please enter password not match.";
-  static const success = "success";
-  static const fail = "fail";
+      "Veuillez entrer des mots de passe correspondants.";
+  static const success = "Succès";
+  static const fail = "Échec";
 }

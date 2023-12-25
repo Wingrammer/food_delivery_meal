@@ -10,7 +10,7 @@
 - [Youtube Video Part-1: App Induction & Startup UI & Welcome UI ](https://youtu.be/z8NHvp4tbrQ)
 - [Youtube Video Part-2: Login UI & Sign Up UI & Reset Password UI & New Password UI & OTP UI ](https://youtu.be/UYq7KGd15Cw)
 - [Youtube Video Part-3: On Boarding UI & Custom Bottom TabView UI ](https://youtu.be/EaHkIxwYv_Y)
-- [Youtube Video Part-4: Home Tab UI with Category ListView, Popular Restaurants ListView, Most Popular ListView, Recent ListView ](https://youtu.be/8tR-_-VLMb0)
+- [Youtube Video Part-4: Home Tab UI with Category ListView, Populaires ListView, Most Popular ListView, Recent ListView ](https://youtu.be/8tR-_-VLMb0)
 - [Youtube Video Part-5: Menu Tab UI & Menu Items UI ](https://youtu.be/xhGsV4dzFGs)
 - [Youtube Video Part-6: Food Details UI - Part1 ](https://youtu.be/apZ_l1MzziQ)
 - [Youtube Video Part-7: Food Details UI - Part2 & Offer Tab UI ](https://youtu.be/GN7cM-O4iTk)
@@ -40,5 +40,5 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
+[online documentation](https://docs.flutter.dev/), which Offres tutorials,
 samples, guidance on mobile development, and a full API reference.

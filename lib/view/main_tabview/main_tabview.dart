@@ -74,7 +74,7 @@ class _MainTabViewState extends State<MainTabView> {
                   },
                   isSelected: selctTab == 0),
               TabButton(
-                  title: "Offer",
+                  title: "Offre",
                   icon: "assets/img/tab_offer.png",
                   onTap: () {
                     if (selctTab != 1) {
@@ -86,12 +86,12 @@ class _MainTabViewState extends State<MainTabView> {
                     }
                   },
                   isSelected: selctTab == 1),
-        
-        
-                const  SizedBox(width: 40, height: 40, ),
-        
+              const SizedBox(
+                width: 40,
+                height: 40,
+              ),
               TabButton(
-                  title: "Profile",
+                  title: "Profil",
                   icon: "assets/img/tab_profile.png",
                   onTap: () {
                     if (selctTab != 3) {
@@ -104,12 +104,12 @@ class _MainTabViewState extends State<MainTabView> {
                   },
                   isSelected: selctTab == 3),
               TabButton(
-                  title: "More",
+                  title: "Plus",
                   icon: "assets/img/tab_more.png",
                   onTap: () {
                     if (selctTab != 4) {
                       selctTab = 4;
-                      selectPageView = const  MoreView();
+                      selectPageView = const MoreView();
                     }
                     if (mounted) {
                       setState(() {});

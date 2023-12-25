@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common_widget/round_button.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,12 +20,22 @@ class _ProfileViewState extends State<ProfileView> {
   final ImagePicker picker = ImagePicker();
   XFile? image;
 
+  FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController txtName = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtMobile = TextEditingController();
   TextEditingController txtAddress = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   TextEditingController txtConfirmPassword = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    txtName.value = TextEditingValue(text: auth.currentUser!.displayName!);
+    txtEmail.value = TextEditingValue(text: auth.currentUser!.email!);
+    txtMobile.value = TextEditingValue(text: auth.currentUser!.phoneNumber!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +53,7 @@ class _ProfileViewState extends State<ProfileView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Profile",
+                  "Profil",
                   style: TextStyle(
                       color: TColor.primaryText,
                       fontSize: 20,
@@ -98,12 +109,13 @@ class _ProfileViewState extends State<ProfileView> {
               size: 12,
             ),
             label: Text(
-              "Edit Profile",
+              "Modifier",
               style: TextStyle(color: TColor.primary, fontSize: 12),
             ),
           ),
           Text(
-            "Hi there Emilia!",
+            "Bonjour ${auth.currentUser?.displayName?.split(' ')[0]}!"
+                .replaceAll('null', ''),
             style: TextStyle(
                 color: TColor.primaryText,
                 fontSize: 16,
@@ -112,7 +124,7 @@ class _ProfileViewState extends State<ProfileView> {
           TextButton(
             onPressed: () {},
             child: Text(
-              "Sign Out",
+              "Se Déconnecter",
               style: TextStyle(
                   color: TColor.secondaryText,
                   fontSize: 11,
@@ -125,16 +137,13 @@ class _ProfileViewState extends State<ProfileView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: RoundTitleTextfield(
-              title: "Name",
-              hintText: "Enter Name",
-              controller: txtName,
-            ),
+                title: "Nom", hintText: "Entrez Nom", controller: txtName),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: RoundTitleTextfield(
               title: "Email",
-              hintText: "Enter Email",
+              hintText: "Entrez Email",
               keyboardType: TextInputType.emailAddress,
               controller: txtEmail,
             ),
@@ -142,8 +151,8 @@ class _ProfileViewState extends State<ProfileView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: RoundTitleTextfield(
-              title: "Mobile No",
-              hintText: "Enter Mobile No",
+              title: "No Telephone",
+              hintText: "Entrez No Telephone",
               controller: txtMobile,
               keyboardType: TextInputType.phone,
             ),
@@ -151,35 +160,40 @@ class _ProfileViewState extends State<ProfileView> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
             child: RoundTitleTextfield(
-              title: "Address",
-              hintText: "Enter Address",
+              title: "Addresse",
+              hintText: "Entrez Addresse",
               controller: txtAddress,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-            child: RoundTitleTextfield(
-              title: "Password",
-              hintText: "* * * * * *",
-              obscureText: true,
-              controller: txtPassword,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-            child: RoundTitleTextfield(
-              title: "Confirm Password",
-              hintText: "* * * * * *",
-              obscureText: true,
-              controller: txtConfirmPassword,
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+          //   child: RoundTitleTextfield(
+          //     title: "Password",
+          //     hintText: "* * * * * *",
+          //     obscureText: true,
+          //     controller: txtPassword,
+          //   ),
+          // // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+          //   child: RoundTitleTextfield(
+          //     title: "Confirm Password",
+          //     hintText: "* * * * * *",
+          //     obscureText: true,
+          //     controller: txtConfirmPassword,
+          //   ),
+          // ),
           const SizedBox(
             height: 20,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RoundButton(title: "Save", onPressed: () {}),
+            child: RoundButton(
+                title: "Enregistrer",
+                onPressed: () {
+                  auth.currentUser?.updateDisplayName(txtName.value.text);
+                  auth.currentUser?.updateEmail(txtEmail.value.text);
+                }),
           ),
           const SizedBox(
             height: 20,

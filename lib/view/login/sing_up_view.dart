@@ -159,7 +159,7 @@ class _SignUpViewState extends State<SignUpView> {
     }
 
     if (!txtEmail.text.isEmail) {
-      mdShowAlert(Globs.appName, MSG.enterEmail, () {});
+      mdShowAlert(Globs.appName, MSG.enterPhone, () {});
       return;
     }
 

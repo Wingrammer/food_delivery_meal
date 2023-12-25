@@ -112,7 +112,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                                 width: 8,
                               ),
                               Text(
-                                "(124 Ratings)",
+                                "(124 Votes)",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: TColor.secondaryText, fontSize: 12),

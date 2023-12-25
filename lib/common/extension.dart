@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/color_extension.dart';
 
 extension StateExtension on State {
   void mdShowAlert(String title, String message, VoidCallback onPressed,
@@ -16,26 +17,27 @@ extension StateExtension on State {
         actions: [
           CupertinoDialogAction(
             isDefaultAction: true,
-            child: Text(buttonTitle),
             onPressed: () {
               Navigator.pop(context);
               onPressed();
             },
+            textStyle: TextStyle(color: TColor.primary),
+            child: Text(buttonTitle),
           )
         ],
       ),
     );
   }
 
-  void endEditing(){
+  void endEditing() {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 }
 
-
 extension StringExtension on String {
   bool get isEmail {
     return RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this);
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(this);
   }
 }

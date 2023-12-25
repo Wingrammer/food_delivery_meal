@@ -24,9 +24,16 @@ class _WelcomeViewState extends State<WelcomeView> {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Image.asset(
-                  "assets/img/welcome_top_shape.png",
-                  width: media.width,
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    TColor.white
+                        .withOpacity(0.7), // Adjust opacity here (0.0 to 1.0)
+                    BlendMode.srcATop,
+                  ),
+                  child: Image.asset(
+                    "assets/img/welcome_top_shape.png",
+                    width: media.width,
+                  ),
                 ),
                 Image.asset(
                   "assets/img/app_logo.png",
@@ -40,7 +47,7 @@ class _WelcomeViewState extends State<WelcomeView> {
               height: media.width * 0.1,
             ),
             Text(
-              "Discover the best foods from over 1,000\nrestaurants and fast delivery to your\ndoorstep",
+              "Explorez les meilleurs plats\n et une livraison rapide jusqu'à votre\ndomicile.",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: TColor.secondaryText,
@@ -53,7 +60,7 @@ class _WelcomeViewState extends State<WelcomeView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: RoundButton(
-                title: "Login",
+                title: "Connexion",
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -67,21 +74,21 @@ class _WelcomeViewState extends State<WelcomeView> {
             const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: RoundButton(
-                title: "Create an Account",
-                type: RoundButtonType.textPrimary,
-                onPressed: () {
-                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignUpView(),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 25),
+            //   child: RoundButton(
+            //     title: "Créer un Compte",
+            //     type: RoundButtonType.textPrimary,
+            //     onPressed: () {
+            //        Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => const SignUpView(),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
             const SizedBox(
               height: 20,
             ),

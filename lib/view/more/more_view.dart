@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/view/more/about_us_view.dart';
 import 'package:food_delivery/view/more/inbox_view.dart';
@@ -17,18 +18,18 @@ class MoreView extends StatefulWidget {
 
 class _MoreViewState extends State<MoreView> {
   List moreArr = [
-    {
-      "index": "1",
-      "name": "Payment Details",
-      "image": "assets/img/more_payment.png",
-      "base": 0
-    },
-    {
-      "index": "2",
-      "name": "My Orders",
-      "image": "assets/img/more_my_order.png",
-      "base": 0
-    },
+    // {
+    //   "index": "1",
+    //   "name": "Payment Details",
+    //   "image": "assets/img/more_payment.png",
+    //   "base": 0
+    // },
+    // {
+    //   "index": "2",
+    //   "name": "Mes Commandes",
+    //   "image": "assets/img/more_my_order.png",
+    //   "base": 0
+    // },
     {
       "index": "3",
       "name": "Notifications",
@@ -43,13 +44,13 @@ class _MoreViewState extends State<MoreView> {
     },
     {
       "index": "5",
-      "name": "About Us",
+      "name": "A Propos de nous",
       "image": "assets/img/more_info.png",
       "base": 0
     },
     {
       "index": "6",
-      "name": "Logout",
+      "name": "Se Déconnecter",
       "image": "assets/img/more_info.png",
       "base": 0
     },
@@ -73,7 +74,7 @@ class _MoreViewState extends State<MoreView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "More",
+                      "Plus",
                       style: TextStyle(
                           color: TColor.primaryText,
                           fontSize: 20,
@@ -104,7 +105,7 @@ class _MoreViewState extends State<MoreView> {
                     var mObj = moreArr[index] as Map? ?? {};
                     var countBase = mObj["base"] as int? ?? 0;
                     return InkWell(
-                      onTap: () {
+                      onTap: () async {
                         switch (mObj["index"].toString()) {
                           case "1":
                             Navigator.push(
@@ -137,6 +138,7 @@ class _MoreViewState extends State<MoreView> {
                                 MaterialPageRoute(
                                     builder: (context) => const AboutUsView()));
                           case "6":
+                            await FirebaseAuth.instance.signOut();
                             ServiceCall.logout();
 
                           default:
@@ -191,7 +193,7 @@ class _MoreViewState extends State<MoreView> {
                                     Container(
                                       padding: const EdgeInsets.all(4),
                                       decoration: BoxDecoration(
-                                          color: Colors.red,
+                                          color: TColor.primary,
                                           borderRadius:
                                               BorderRadius.circular(12.5)),
                                       alignment: Alignment.center,

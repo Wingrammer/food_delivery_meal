@@ -13,62 +13,62 @@ class InboxView extends StatefulWidget {
 class _InboxViewState extends State<InboxView> {
   List inboxArr = [
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
     {
-      "title": "MealMonkey Promotions",
+      "title": "CVV Promotions",
       "detail":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     },
@@ -176,8 +176,7 @@ class _InboxViewState extends State<InboxView> {
                                 cObj["detail"].toString(),
                                 maxLines: 2,
                                 style: TextStyle(
-                                    color: TColor.secondaryText,
-                                    fontSize: 14),
+                                    color: TColor.secondaryText, fontSize: 14),
                               ),
                             ],
                           ),

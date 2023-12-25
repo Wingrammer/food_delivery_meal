@@ -70,7 +70,7 @@ class PopularRestaurantRow extends StatelessWidget {
                         width: 8,
                       ),
                       Text(
-                        "(${pObj["rating"]} Ratings)",
+                        "(${pObj["rating"]} Votes)",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: TColor.secondaryText, fontSize: 11),

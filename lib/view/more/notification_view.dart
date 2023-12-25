@@ -13,35 +13,35 @@ class NotificationsView extends StatefulWidget {
 class _NotificationsViewState extends State<NotificationsView> {
   List notificationArr = [
     {
-      "title": "Your orders has been picked up",
-      "time": "Now",
+      "title": "Votre commande est en route",
+      "time": "Maintenant",
     },
     {
-      "title": "Your order has been delivered",
-      "time": "1 h ago",
+      "title": "Votre commande a été livrée",
+      "time": "Il y a 1 h",
     },
     {
-      "title": "Your orders has been picked up",
-      "time": "3 h ago",
+      "title": "Votre commande est en route",
+      "time": "Il y a 3 h",
     },
     {
-      "title": "Your order has been delivered",
-      "time": "5 h ago",
+      "title": "Votre commande a été livrée",
+      "time": "Il y a 5 h",
     },
     {
-      "title": "Your orders has been picked up",
+      "title": "Votre commande est en route",
       "time": "05 Jun 2023",
     },
     {
-      "title": "Your order has been delivered",
+      "title": "Votre commande a été livrée",
       "time": "05 Jun 2023",
     },
     {
-      "title": "Your orders has been picked up",
+      "title": "Votre commande est en route",
       "time": "06 Jun 2023",
     },
     {
-      "title": "Your order has been delivered",
+      "title": "Votre commande a été livrée",
       "time": "06 Jun 2023",
     },
   ];
@@ -103,15 +103,17 @@ class _NotificationsViewState extends State<NotificationsView> {
                 padding: EdgeInsets.zero,
                 itemCount: notificationArr.length,
                 separatorBuilder: ((context, index) => Divider(
-                  indent: 25,
-                  endIndent: 25,
+                      indent: 25,
+                      endIndent: 25,
                       color: TColor.secondaryText.withOpacity(0.4),
                       height: 1,
                     )),
                 itemBuilder: ((context, index) {
                   var cObj = notificationArr[index] as Map? ?? {};
                   return Container(
-                    decoration: BoxDecoration(color: index % 2 == 0 ? TColor.white : TColor.textfield ),
+                    decoration: BoxDecoration(
+                        color:
+                            index % 2 == 0 ? TColor.white : TColor.textfield),
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 25),
                     child: Row(

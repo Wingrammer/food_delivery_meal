@@ -9,9 +9,9 @@ typedef ResSuccess = Future<void> Function(Map<String, dynamic>);
 typedef ResFailure = Future<void> Function(dynamic);
 
 class ServiceCall {
-  static final NavigationService navigationService = locator<NavigationService>();
+  static final NavigationService navigationService =
+      locator<NavigationService>();
   static Map userPayload = {};
-
 
   static void post(Map<String, dynamic> parameter, String path,
       {bool isToken = false, ResSuccess? withSuccess, ResFailure? failure}) {
@@ -37,8 +37,8 @@ class ServiceCall {
           } catch (err) {
             if (failure != null) failure(err.toString());
           }
-        }).catchError( (e) {
-           if (failure != null) failure(e.toString());
+        }).catchError((e) {
+          if (failure != null) failure(e.toString());
         });
       } catch (err) {
         if (failure != null) failure(err.toString());
@@ -46,11 +46,9 @@ class ServiceCall {
     });
   }
 
-  static logout(){
+  static logout() {
     Globs.udBoolSet(false, Globs.userLogin);
     userPayload = {};
     navigationService.navigateTo("welcome");
   }
-
-
 }

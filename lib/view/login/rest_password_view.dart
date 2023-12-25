@@ -78,7 +78,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   //TODO: Action
   void btnSubmit() {
     if (!txtEmail.text.isEmail) {
-      mdShowAlert(Globs.appName, MSG.enterEmail, () {});
+      mdShowAlert(Globs.appName, MSG.enterPhone, () {});
       return;
     }
 

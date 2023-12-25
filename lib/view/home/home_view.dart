@@ -22,47 +22,47 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController txtSearch = TextEditingController();
 
   List catArr = [
-    {"image": "assets/img/cat_offer.png", "name": "Offers"},
-    {"image": "assets/img/cat_sri.png", "name": "Sri Lankan"},
-    {"image": "assets/img/cat_3.png", "name": "Italian"},
-    {"image": "assets/img/cat_4.png", "name": "Indian"},
+    {"image": "assets/img/cat_offer.png", "name": "Offres"},
+    {"image": "assets/img/cat_sri.png", "name": "Africain"},
+    {"image": "assets/img/cat_3.png", "name": "Italien"},
+    {"image": "assets/img/cat_4.png", "name": "Indien"},
   ];
 
   List popArr = [
     {
       "image": "assets/img/res_1.png",
-      "name": "Minute by tuk tuk",
+      "name": "Pizza",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
     {
       "image": "assets/img/res_2.png",
-      "name": "Café de Noir",
+      "name": "Café Noir",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
     {
       "image": "assets/img/res_3.png",
-      "name": "Bakes by Tella",
+      "name": "Gateaux",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
   ];
 
   List mostPopArr = [
     {
       "image": "assets/img/m_res_1.png",
-      "name": "Minute by tuk tuk",
+      "name": "Pizza",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
     {
       "image": "assets/img/m_res_2.png",
@@ -70,18 +70,18 @@ class _HomeViewState extends State<HomeView> {
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
   ];
 
   List recentArr = [
     {
       "image": "assets/img/item_1.png",
-      "name": "Mulberry Pizza by Josh",
+      "name": "Pizza",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
     {
       "image": "assets/img/item_2.png",
@@ -89,7 +89,7 @@ class _HomeViewState extends State<HomeView> {
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
     {
       "image": "assets/img/item_3.png",
@@ -97,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
-      "food_type": "Western Food"
+      "food_type": "Cuisine Occ..."
     },
   ];
 
@@ -118,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Good morning ${ServiceCall.userPayload[KKey.name] ?? ""}!",
+                      "Bonjour ${ServiceCall.userPayload[KKey.name] ?? ""}!",
                       style: TextStyle(
                           color: TColor.primaryText,
                           fontSize: 20,
@@ -149,7 +149,7 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Delivering to",
+                      "Se faire livrer à",
                       style:
                           TextStyle(color: TColor.secondaryText, fontSize: 11),
                     ),
@@ -160,7 +160,7 @@ class _HomeViewState extends State<HomeView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Current Location",
+                          "Emplacement Actuel",
                           style: TextStyle(
                               color: TColor.secondaryText,
                               fontSize: 16,
@@ -169,11 +169,7 @@ class _HomeViewState extends State<HomeView> {
                         const SizedBox(
                           width: 25,
                         ),
-                        Image.asset(
-                          "assets/img/dropdown.png",
-                          width: 12,
-                          height: 12,
-                        )
+                        const Icon(Icons.arrow_drop_down_sharp)
                       ],
                     )
                   ],
@@ -185,7 +181,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: RoundTextfield(
-                  hintText: "Search Food",
+                  hintText: "Rechercher Plat",
                   controller: txtSearch,
                   left: Container(
                     alignment: Alignment.center,
@@ -219,7 +215,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Popular Restaurants",
+                  title: "Populaires",
                   onView: () {},
                 ),
               ),
@@ -261,7 +257,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Recent Items",
+                  title: "Plus récents",
                   onView: () {},
                 ),
               ),

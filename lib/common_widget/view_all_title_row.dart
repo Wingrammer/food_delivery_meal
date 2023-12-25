@@ -12,21 +12,25 @@ class ViewAllTitleRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-              color: TColor.primaryText,
-              fontSize: 20,
-              fontWeight: FontWeight.w800),
-        ),
-        TextButton(
-          onPressed: onView,
+        Flexible(
           child: Text(
-            "View all",
+            title,
             style: TextStyle(
-                color: TColor.primary,
-                fontSize: 13,
-                fontWeight: FontWeight.w500),
+                color: TColor.primaryText,
+                fontSize: 20,
+                fontWeight: FontWeight.w800),
+          ),
+        ),
+        Flexible(
+          child: TextButton(
+            onPressed: onView,
+            child: Text(
+              "Tout",
+              style: TextStyle(
+                  color: TColor.primary,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ],

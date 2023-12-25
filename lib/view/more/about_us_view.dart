@@ -47,7 +47,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                     ),
                     Expanded(
                       child: Text(
-                        "About Us",
+                        "A Propos de Nous",
                         style: TextStyle(
                             color: TColor.primaryText,
                             fontSize: 20,
@@ -75,7 +75,6 @@ class _AboutUsViewState extends State<AboutUsView> {
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemCount: aboutTextArr.length,
-               
                 itemBuilder: ((context, index) {
                   var txt = aboutTextArr[index] as String? ?? "";
                   return Container(
@@ -99,8 +98,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                           child: Text(
                             txt,
                             style: TextStyle(
-                                color: TColor.primaryText,
-                                fontSize: 14),
+                                color: TColor.primaryText, fontSize: 14),
                           ),
                         ),
                       ],

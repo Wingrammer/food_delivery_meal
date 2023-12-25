@@ -15,24 +15,24 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   PageController controller = PageController();
 
   List pageArr = [
-    {
-      "title": "Find Food You Love",
-      "subtitle":
-          "Discover the best foods from over 1,000\nrestaurants and fast delivery to your\ndoorstep",
-      "image": "assets/img/on_boarding_1.png",
-    },
-    {
-      "title": "Fast Delivery",
-      "subtitle": "Fast food delivery to your home, office\n wherever you are",
-      "image": "assets/img/on_boarding_2.png",
-    },
-    {
-      "title": "Live Tracking",
-      "subtitle":
-          "Real time tracking of your food on the app\nonce you placed the order",
-      "image": "assets/img/on_boarding_3.png",
-    },
-  ];
+  {
+    "title": "Vos plats préférés",
+    "subtitle":
+        "Découvrez les meilleurs plats \net une livraison rapide à votre\nporte",
+    "image": "assets/img/on_boarding_1.png",
+  },
+  {
+    "title": "Livraison rapide",
+    "subtitle": "Livraison rapide à domicile, au bureau\n où que vous soyez",
+    "image": "assets/img/on_boarding_2.png",
+  },
+  {
+    "title": "Suivi en direct",
+    "subtitle":
+        "Suivi en temps réel de votre commande sur l'application\nune fois que vous avez passé la commande",
+    "image": "assets/img/on_boarding_3.png",
+  },
+];
 
   @override
   void initState() {
@@ -86,13 +86,15 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   SizedBox(
                     height: media.width * 0.05,
                   ),
-                  Text(
-                    pObj["subtitle"].toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: TColor.secondaryText,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500),
+                  Flexible(
+                    child: Text(
+                      pObj["subtitle"].toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: TColor.secondaryText,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                   SizedBox(
                     height: media.width * 0.20,
@@ -130,7 +132,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: RoundButton(
-                    title: "Next",
+                    title: "Aller",
                     onPressed: () {
                       if (selectPage >= 2) {
                         // Home Screen
@@ -160,3 +162,4 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     );
   }
 }
+
