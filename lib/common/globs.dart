@@ -79,7 +79,7 @@ class Globs {
 }
 
 class SVKey {
-  static const mainUrl = "http://192.168.1.64:3001";
+  static const mainUrl = "https://cvv-backend.vercel.app";
   static const baseUrl = '$mainUrl/api/';
   static const nodeUrl = mainUrl;
 
