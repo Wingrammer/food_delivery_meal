@@ -31,10 +31,13 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     // TODO: implement initState
+
+    txtName.value =
+        TextEditingValue(text: auth.currentUser!.displayName ?? "Nom");
+    txtEmail.value = TextEditingValue(text: auth.currentUser!.email ?? "Email");
+    txtMobile.value =
+        TextEditingValue(text: auth.currentUser!.phoneNumber ?? "Numero");
     super.initState();
-    txtName.value = TextEditingValue(text: auth.currentUser!.displayName!);
-    txtEmail.value = TextEditingValue(text: auth.currentUser!.email!);
-    txtMobile.value = TextEditingValue(text: auth.currentUser!.phoneNumber!);
   }
 
   @override
@@ -114,8 +117,7 @@ class _ProfileViewState extends State<ProfileView> {
             ),
           ),
           Text(
-            "Bonjour ${auth.currentUser?.displayName?.split(' ')[0]}!"
-                .replaceAll('null', ''),
+            "Bonjour ${auth.currentUser?.displayName}",
             style: TextStyle(
                 color: TColor.primaryText,
                 fontSize: 16,

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/cart.dart';
 import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common_widget/round_textfield.dart';
+import 'package:food_delivery/model/cart.dart';
+// import 'package:food_delivery/main.dart';
+import 'package:food_delivery/view/map/entry.dart';
+import 'package:geolocator/geolocator.dart';
+// import 'package:location/location.dart';
+
+import '../../helpers/mapbox_handler.dart';
 
 import '../../common/globs.dart';
 import '../../common/service_call.dart';
@@ -20,6 +28,38 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   TextEditingController txtSearch = TextEditingController();
+
+  void initializeLocationAndSave() async {
+    // Ensure all permissions are collected for Locations
+    // Location _location = Location();
+    bool? _serviceEnabled;
+    LocationPermission? _permissionGranted;
+
+    _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!_serviceEnabled) {
+    //   _serviceEnabled = await _location.requestService();
+    // }
+
+    _permissionGranted = await Geolocator.checkPermission();
+    if (_permissionGranted == LocationPermission.denied) {
+      _permissionGranted = await Geolocator.requestPermission();
+    }
+
+    // Get the current user location
+    Position _locationData = await Geolocator.getCurrentPosition();
+    Position currentLocation = _locationData;
+    // LatLng(_locationData.latitude!, _locationData.longitude!);
+
+    // Get the current user address
+    String currentAddress =
+        (await getParsedReverseGeocoding(currentLocation))['place'];
+    print(currentAddress);
+    print(currentLocation);
+    // // Store the user location in sharedPreferences
+    // prefs.setDouble('latitude', _locationData.latitude!);
+    // prefs.setDouble('longitude', _locationData.longitude!);
+    // prefs.setString('current-address', currentAddress);
+  }
 
   List catArr = [
     {"image": "assets/img/cat_offer.png", "name": "Offres"},
@@ -102,7 +142,16 @@ class _HomeViewState extends State<HomeView> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeLocationAndSave();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    CartService cartService = cart<CartService>();
+    List<CartItem> cartItems = cartService.cartItems;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -124,17 +173,24 @@ class _HomeViewState extends State<HomeView> {
                           fontSize: 20,
                           fontWeight: FontWeight.w800),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
-                      },
-                      icon: Image.asset(
-                        "assets/img/shopping_cart.png",
-                        width: 25,
-                        height: 25,
+                    Badge(
+                      label: cartItems.isNotEmpty
+                          ? Text(cartItems.length.toString())
+                          : null,
+                      backgroundColor:
+                          cartItems.isEmpty ? TColor.white : TColor.primary,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyOrderView()));
+                        },
+                        icon: Image.asset(
+                          "assets/img/shopping_cart.png",
+                          width: 25,
+                          height: 25,
+                        ),
                       ),
                     ),
                   ],
@@ -156,21 +212,31 @@ class _HomeViewState extends State<HomeView> {
                     const SizedBox(
                       height: 6,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Emplacement Actuel",
-                          style: TextStyle(
-                              color: TColor.secondaryText,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(
-                          width: 25,
-                        ),
-                        const Icon(Icons.arrow_drop_down_sharp)
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const SampleNavigationApp()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Emplacement Actuel",
+                            style: TextStyle(
+                                color: TColor.secondaryText,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(
+                            width: 25,
+                          ),
+                          const Icon(Icons.arrow_drop_down_sharp)
+                        ],
+                      ),
                     )
                   ],
                 ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/cart.dart';
 import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common_widget/round_textfield.dart';
+import 'package:food_delivery/model/cart.dart';
+import 'package:food_delivery/model/menu.dart';
+import 'package:food_delivery/model/menu_item.dart';
 
 import '../../common_widget/menu_item_row.dart';
 import '../more/my_order_view.dart';
 import 'item_details_view.dart';
 
 class MenuItemsView extends StatefulWidget {
-  final Map mObj;
+  final Menu mObj;
   const MenuItemsView({super.key, required this.mObj});
 
   @override
@@ -86,6 +90,8 @@ class _MenuItemsViewState extends State<MenuItemsView> {
 
   @override
   Widget build(BuildContext context) {
+    CartService cartService = cart<CartService>();
+    List<CartItem> cartItems = cartService.cartItems;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -111,24 +117,31 @@ class _MenuItemsViewState extends State<MenuItemsView> {
                     ),
                     Expanded(
                       child: Text(
-                        widget.mObj["name"].toString(),
+                        widget.mObj.name,
                         style: TextStyle(
                             color: TColor.primaryText,
                             fontSize: 20,
                             fontWeight: FontWeight.w800),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
-                      },
-                      icon: Image.asset(
-                        "assets/img/shopping_cart.png",
-                        width: 25,
-                        height: 25,
+                    Badge(
+                      label: cartItems.isNotEmpty
+                          ? Text(cartItems.length.toString())
+                          : null,
+                      backgroundColor:
+                          cartItems.isEmpty ? TColor.white : TColor.primary,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyOrderView()));
+                        },
+                        icon: Image.asset(
+                          "assets/img/shopping_cart.png",
+                          width: 25,
+                          height: 25,
+                        ),
                       ),
                     ),
                   ],
@@ -160,16 +173,18 @@ class _MenuItemsViewState extends State<MenuItemsView> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: menuItemsArr.length,
+                itemCount: widget.mObj.menuItems.length,
                 itemBuilder: ((context, index) {
-                  var mObj = menuItemsArr[index] as Map? ?? {};
+                  MenuItem mObj = widget.mObj.menuItems[index];
                   return MenuItemRow(
                     mObj: mObj,
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ItemDetailsView()),
+                            builder: (context) => ItemDetailsView(
+                                  mObj: mObj,
+                                )),
                       );
                     },
                   );

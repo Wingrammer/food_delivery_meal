@@ -94,6 +94,7 @@ class _LoginViewState extends State<LoginView> {
                           // This callback is triggered when the OTP code is completely entered
                           // Handle the verification process here
                           // Create a PhoneAuthCredential with the code
+                          // print(verificationCode);
                           try {
                             PhoneAuthCredential credential =
                                 PhoneAuthProvider.credential(
@@ -302,7 +303,7 @@ class _LoginViewState extends State<LoginView> {
     ServiceCall.post({"firebase_id": auth.currentUser?.uid}, SVKey.svSignUp,
         withSuccess: (responseObj) async {
       Globs.hideHUD();
-
+      print("hey");
       Globs.udSet(responseObj[KKey.payload] as Map? ?? {}, Globs.userPayload);
       Globs.udBoolSet(true, Globs.userLogin);
 
@@ -329,6 +330,7 @@ class _LoginViewState extends State<LoginView> {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '+228${txtPhone.text}',
       verificationCompleted: (PhoneAuthCredential credential) async {
+        print('code complete');
         // ANDROID ONLY!
         setState(() {
           codeSent =
@@ -338,6 +340,7 @@ class _LoginViewState extends State<LoginView> {
         await upsertUserWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
+        print(e.code);
         if (e.code == 'invalid-phone-number') {
           Globs.hideHUD();
           mdShowAlert(
@@ -348,6 +351,7 @@ class _LoginViewState extends State<LoginView> {
       },
       codeSent: (String incomingVerificationId, int? resendToken) {
         // Update the UI - wait for the user to enter the SMS code
+        print('code sent');
         setState(() {
           verificationId = incomingVerificationId;
           codeSent = true; // Set codeSent to true when code is sent

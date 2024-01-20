@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/common/cart.dart';
 import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common_widget/round_button.dart';
+import 'package:food_delivery/model/cart.dart';
 
 import 'checkout_view.dart';
 
@@ -12,16 +14,36 @@ class MyOrderView extends StatefulWidget {
 }
 
 class _MyOrderViewState extends State<MyOrderView> {
-  List itemArr = [
-    {"name": "Beef Burger", "qty": "1", "price": 16.0},
-    {"name": "Classic Burger", "qty": "1", "price": 14.0},
-    {"name": "Cheese Chicken Burger", "qty": "1", "price": 17.0},
-    {"name": "Chicken Legs Basket", "qty": "1", "price": 15.0},
-    {"name": "French Fires Large", "qty": "1", "price": 6.0}
-  ];
+  // List cartItems = [
+  //   {"name": "Beef Burger", "qty": "1", "price": 16.0},
+  //   {"name": "Classic Burger", "qty": "1", "price": 14.0},
+  //   {"name": "Cheese Chicken Burger", "qty": "1", "price": 17.0},
+  //   {"name": "Chicken Legs Basket", "qty": "1", "price": 15.0},
+  //   {"name": "French Fires Large", "qty": "1", "price": 6.0}
+  // ];
+
+  void editCartItem(int index, int newQuantity) {
+    CartService cartService = cart<CartService>();
+    cartService.editCartItemQuantity(index, newQuantity);
+  }
+
+  void removeCartItem(int index) {
+    CartService cartService = cart<CartService>();
+    cartService.removeCartItem(index);
+  }
+
+  void clearCart() {
+    CartService cartService = cart<CartService>();
+    cartService.clearCart();
+  }
 
   @override
   Widget build(BuildContext context) {
+    CartService cartService = cart<CartService>();
+    List<CartItem> cartItems = cartService.cartItems;
+    double subTotal = cartItems.fold(0.0, (p, c) => p + c.price);
+    double deliveryFee = 2;
+    double total = subTotal + deliveryFee;
     return Scaffold(
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
@@ -49,7 +71,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                     ),
                     Expanded(
                       child: Text(
-                        "My Order",
+                        "Ma Commande",
                         style: TextStyle(
                             color: TColor.primaryText,
                             fontSize: 20,
@@ -67,7 +89,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image.asset(
-                          "assets/img/shop_logo.png",
+                          "assets/img/app_logo.png",
                           width: 80,
                           height: 80,
                           fit: BoxFit.cover,
@@ -80,7 +102,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "King Burgers",
+                            "CVV",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: TColor.primaryText,
@@ -126,7 +148,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Burger",
+                                "Ayimolou",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: TColor.secondaryText, fontSize: 12),
@@ -138,7 +160,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                                     color: TColor.primary, fontSize: 12),
                               ),
                               Text(
-                                "Western Food",
+                                "Togo Food",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: TColor.secondaryText, fontSize: 12),
@@ -162,7 +184,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               ),
                               Expanded(
                                 child: Text(
-                                  "No 03, 4th Lane, Newyork",
+                                  "No 03, 4th Lane, Lome",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: TColor.secondaryText,
@@ -186,7 +208,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
-                  itemCount: itemArr.length,
+                  itemCount: cartItems.length,
                   separatorBuilder: ((context, index) => Divider(
                         indent: 25,
                         endIndent: 25,
@@ -194,7 +216,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         height: 1,
                       )),
                   itemBuilder: ((context, index) {
-                    var cObj = itemArr[index] as Map? ?? {};
+                    var cObj = cartItems[index];
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 25),
@@ -203,7 +225,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                         children: [
                           Expanded(
                             child: Text(
-                              "${cObj["name"].toString()} x${cObj["qty"].toString()}",
+                              "${cObj.menuItem.menuItemName.toString()} x${cObj.quantity.toString()}",
                               style: TextStyle(
                                   color: TColor.primaryText,
                                   fontSize: 13,
@@ -214,7 +236,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                             width: 15,
                           ),
                           Text(
-                            "\$${cObj["price"].toString()}",
+                            "\$${cObj.price.toString()}",
                             style: TextStyle(
                                 color: TColor.primaryText,
                                 fontSize: 13,
@@ -231,30 +253,30 @@ class _MyOrderViewState extends State<MyOrderView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Delivery Instructions",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: TColor.primaryText,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.add, color: TColor.primary),
-                          label: Text(
-                            "Add Notes",
-                            style: TextStyle(
-                                color: TColor.primary,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Text(
+                    //       "Delivery Instructions",
+                    //       textAlign: TextAlign.center,
+                    //       style: TextStyle(
+                    //           color: TColor.primaryText,
+                    //           fontSize: 13,
+                    //           fontWeight: FontWeight.w700),
+                    //     ),
+                    //     TextButton.icon(
+                    //       onPressed: () {},
+                    //       icon: Icon(Icons.add, color: TColor.primary),
+                    //       label: Text(
+                    //         "Add Notes",
+                    //         style: TextStyle(
+                    //             color: TColor.primary,
+                    //             fontSize: 13,
+                    //             fontWeight: FontWeight.w500),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
                     Divider(
                       color: TColor.secondaryText.withOpacity(0.5),
                       height: 1,
@@ -274,7 +296,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "\$68",
+                          "$subTotal F",
                           style: TextStyle(
                               color: TColor.primary,
                               fontSize: 13,
@@ -297,7 +319,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "\$2",
+                          "$deliveryFee F",
                           style: TextStyle(
                               color: TColor.primary,
                               fontSize: 13,
@@ -319,7 +341,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total",
+                          "$total F",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: TColor.primaryText,
@@ -327,7 +349,7 @@ class _MyOrderViewState extends State<MyOrderView> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "\$70",
+                          "$total F",
                           style: TextStyle(
                               color: TColor.primary,
                               fontSize: 22,

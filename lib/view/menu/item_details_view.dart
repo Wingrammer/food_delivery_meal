@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:food_delivery/common/cart.dart';
 import 'package:food_delivery/common_widget/round_icon_button.dart';
+import 'package:food_delivery/main.dart';
+import 'package:food_delivery/model/cart.dart';
+import 'package:food_delivery/model/menu_item.dart';
 
 import '../../common/color_extension.dart';
 import '../more/my_order_view.dart';
 
 class ItemDetailsView extends StatefulWidget {
-  const ItemDetailsView({super.key});
+  final MenuItem mObj;
+  const ItemDetailsView({super.key, required this.mObj});
 
   @override
   State<ItemDetailsView> createState() => _ItemDetailsViewState();
@@ -15,18 +20,28 @@ class ItemDetailsView extends StatefulWidget {
 class _ItemDetailsViewState extends State<ItemDetailsView> {
   double price = 15;
   int qty = 1;
-  bool isFav = false;
+  List<String> favList = prefs.getStringList('menu_item_favs') ?? [];
+  late bool isFav;
+
+  void addItemToCart() {
+    CartService cartService = cart<CartService>();
+    cartService.addItemToCart(widget.mObj, qty);
+  }
 
   @override
   Widget build(BuildContext context) {
+    isFav = favList.contains(widget.mObj.menuItemId.toString());
     var media = MediaQuery.of(context).size;
+    CartService cartService = cart<CartService>();
+    List<CartItem> cartItems = cartService.cartItems;
+    // print(favList);
     return Scaffold(
       backgroundColor: TColor.white,
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Image.asset(
-            "assets/img/detail_top.png",
+          Image.network(
+            widget.mObj.image.toString(),
             width: media.width,
             height: media.width,
             fit: BoxFit.cover,
@@ -68,7 +83,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Text(
-                                  "Tandoori Chicken Pizza",
+                                  widget.mObj.menuItemName,
                                   style: TextStyle(
                                       color: TColor.primaryText,
                                       fontSize: 22,
@@ -93,8 +108,9 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                         IgnorePointer(
                                           ignoring: true,
                                           child: RatingBar.builder(
-                                            initialRating: 4,
-                                            minRating: 1,
+                                            initialRating: widget.mObj.rating
+                                                .ceilToDouble(),
+                                            minRating: 0,
                                             direction: Axis.horizontal,
                                             allowHalfRating: true,
                                             itemCount: 5,
@@ -115,7 +131,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           height: 4,
                                         ),
                                         Text(
-                                          " 4 Star Votes",
+                                          "${widget.mObj.rating.ceilToDouble()} Votes",
                                           style: TextStyle(
                                               color: TColor.primary,
                                               fontSize: 11,
@@ -128,7 +144,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "\$${price.toStringAsFixed(2)}",
+                                          "${widget.mObj.basePrice.toStringAsFixed(2)}F",
                                           style: TextStyle(
                                               color: TColor.primaryText,
                                               fontSize: 31,
@@ -138,7 +154,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                           height: 4,
                                         ),
                                         Text(
-                                          "/per Portion",
+                                          "/par Portion",
                                           style: TextStyle(
                                               color: TColor.primaryText,
                                               fontSize: 11,
@@ -170,7 +186,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Text(
-                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ornare leo non mollis id cursus. Eu euismod faucibus in leo malesuada",
+                                  widget.mObj.description,
                                   style: TextStyle(
                                       color: TColor.secondaryText,
                                       fontSize: 12),
@@ -190,93 +206,93 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: Text(
-                                  "Customize your Order",
-                                  style: TextStyle(
-                                      color: TColor.primaryText,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      color: TColor.textfield,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      isExpanded: true,
-                                      items: ["small", "Big"].map((e) {
-                                        return DropdownMenuItem(
-                                          value: e,
-                                          child: Text(
-                                            e,
-                                            style: TextStyle(
-                                                color: TColor.primaryText,
-                                                fontSize: 14),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (val) {},
-                                      hint: Text(
-                                        "- Select the size of portion -",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: TColor.secondaryText,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      color: TColor.textfield,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: DropdownButtonHideUnderline(
-                                    child: DropdownButton(
-                                      isExpanded: true,
-                                      items: ["small", "Big"].map((e) {
-                                        return DropdownMenuItem(
-                                          value: e,
-                                          child: Text(
-                                            e,
-                                            style: TextStyle(
-                                                color: TColor.primaryText,
-                                                fontSize: 14),
-                                          ),
-                                        );
-                                      }).toList(),
-                                      onChanged: (val) {},
-                                      hint: Text(
-                                        "- Select the ingredients -",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: TColor.secondaryText,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 25),
+                              //   child: Text(
+                              //     "Compose ton Plat",
+                              //     style: TextStyle(
+                              //         color: TColor.primaryText,
+                              //         fontSize: 14,
+                              //         fontWeight: FontWeight.w700),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 25),
+                              //   child: Container(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 15),
+                              //     decoration: BoxDecoration(
+                              //         color: TColor.textfield,
+                              //         borderRadius: BorderRadius.circular(5)),
+                              //     child: DropdownButtonHideUnderline(
+                              //       child: DropdownButton(
+                              //         isExpanded: true,
+                              //         items: ["small", "Big"].map((e) {
+                              //           return DropdownMenuItem(
+                              //             value: e,
+                              //             child: Text(
+                              //               e,
+                              //               style: TextStyle(
+                              //                   color: TColor.primaryText,
+                              //                   fontSize: 14),
+                              //             ),
+                              //           );
+                              //         }).toList(),
+                              //         onChanged: (val) {},
+                              //         hint: Text(
+                              //           "- Taille de la portion -",
+                              //           textAlign: TextAlign.center,
+                              //           style: TextStyle(
+                              //               color: TColor.secondaryText,
+                              //               fontSize: 14),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 15,
+                              // ),
+                              // Padding(
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 25),
+                              //   child: Container(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 15),
+                              //     decoration: BoxDecoration(
+                              //         color: TColor.textfield,
+                              //         borderRadius: BorderRadius.circular(5)),
+                              //     child: DropdownButtonHideUnderline(
+                              //       child: DropdownButton(
+                              //         isExpanded: true,
+                              //         items: ["small", "Big"].map((e) {
+                              //           return DropdownMenuItem(
+                              //             value: e,
+                              //             child: Text(
+                              //               e,
+                              //               style: TextStyle(
+                              //                   color: TColor.primaryText,
+                              //                   fontSize: 14),
+                              //             ),
+                              //           );
+                              //         }).toList(),
+                              //         onChanged: (val) {},
+                              //         hint: Text(
+                              //           "- Ingredients -",
+                              //           textAlign: TextAlign.center,
+                              //           style: TextStyle(
+                              //               color: TColor.secondaryText,
+                              //               fontSize: 14),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               const SizedBox(
                                 height: 25,
                               ),
@@ -286,7 +302,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "Number of Portions",
+                                      "Nombre de Portions",
                                       style: TextStyle(
                                           color: TColor.primaryText,
                                           fontSize: 14,
@@ -428,7 +444,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                                     CrossAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    "Total Price",
+                                                    "Total",
                                                     style: TextStyle(
                                                         color:
                                                             TColor.primaryText,
@@ -440,7 +456,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                                     height: 15,
                                                   ),
                                                   Text(
-                                                    "\$${(price * qty).toString()}",
+                                                    "${(widget.mObj.basePrice * qty).toString()}F",
                                                     style: TextStyle(
                                                         color:
                                                             TColor.primaryText,
@@ -455,11 +471,12 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                                     width: 130,
                                                     height: 25,
                                                     child: RoundIconButton(
-                                                        title: "Add to Cart",
+                                                        title: "Au Panier",
                                                         icon:
                                                             "assets/img/shopping_add.png",
                                                         color: TColor.primary,
-                                                        onPressed: () {}),
+                                                        onPressed:
+                                                            addItemToCart),
                                                   )
                                                 ],
                                               )),
@@ -517,6 +534,14 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                         onTap: () {
                           isFav = !isFav;
                           setState(() {});
+                          List<String> favListCopy = favList;
+                          if (!isFav) {
+                            favListCopy.removeWhere((element) =>
+                                element == '${widget.mObj.menuItemId}');
+                          } else {
+                            favListCopy.add('${widget.mObj.menuItemId}');
+                          }
+                          prefs.setStringList('menu_item_favs', favListCopy);
                         },
                         child: Image.asset(
                             isFav
@@ -552,18 +577,25 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                           color: TColor.white,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MyOrderView()));
-                        },
-                        icon: Image.asset(
-                          "assets/img/shopping_cart.png",
-                          width: 25,
-                          height: 25,
-                          color: TColor.white,
+                      Badge(
+                        label: cartItems.isNotEmpty
+                            ? Text(cartItems.length.toString())
+                            : null,
+                        backgroundColor:
+                            cartItems.isEmpty ? TColor.white : TColor.primary,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyOrderView()));
+                          },
+                          icon: Image.asset(
+                            "assets/img/shopping_cart.png",
+                            width: 25,
+                            height: 25,
+                            color: TColor.white,
+                          ),
                         ),
                       ),
                     ],

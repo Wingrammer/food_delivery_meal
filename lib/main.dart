@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:food_delivery/common/cart.dart';
 import 'package:food_delivery/common/color_extension.dart';
 import 'package:food_delivery/common/locator.dart';
 import 'package:food_delivery/common/service_call.dart';
@@ -15,13 +17,14 @@ import 'firebase_options.dart';
 import 'common/globs.dart';
 import 'common/my_http_overrides.dart';
 
-SharedPreferences? prefs;
+late SharedPreferences prefs;
 void main() async {
   setUpLocator();
+  setUpCart();
+  await dotenv.load();
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
-  late Widget defaultHome;
 
   if (Globs.udValueBool(Globs.userLogin)) {
     ServiceCall.userPayload = Globs.udValue(Globs.userPayload);
